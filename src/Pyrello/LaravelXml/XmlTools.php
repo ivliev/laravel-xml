@@ -47,15 +47,30 @@ class XmlTools
      */
     public static function decode(SimpleXMLElement $xml)
     {
-        // todo: add option to use stdClass instead of array.
         $arr = [];
 
-        foreach ($xml as $element)
+        foreach ($xml as $k=>$element)
         {
             $e = get_object_vars($element);
             if (!empty($e))
             {
-                $value = $element instanceof SimpleXMLElement ? static::decode($element) : $e;
+				foreach($e AS $k1=>$v1) {
+					if($v1 instanceof SimpleXMLElement) {
+						$e[$k1] = static::decode($v1);
+					} elseif(is_array($v1)) {
+						if(count($v1)) {
+							foreach($v1 AS $k2=>$v2) {
+								if($v2 instanceof SimpleXMLElement) {
+									$v1[$k2] = static::decode($v2);
+								}
+							}
+							$e[$k1] = $v1;
+						} else {
+							$e[$k1] = null;
+						}
+					}
+				}
+				$value = $e[0]?? $e;
             }
             else
             {
@@ -64,6 +79,7 @@ class XmlTools
 
             $parent = current($element->xpath('..'));
             $tag = $element->getName();
+
             if (str_singular($parent->getName()) === $tag) {
                 $tag = null;
             }
