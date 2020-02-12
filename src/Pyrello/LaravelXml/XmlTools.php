@@ -21,7 +21,7 @@ class XmlTools
                 // If the $key is numeric, we convert it to the singular form
                 // of the element name it is contained in
                 if (is_numeric($key)) {
-                    $key = str_singular($xml->getName());
+                    $key = \Str::singular($xml->getName());
                 }
                 static::encode($item, $xml->addChild($key));
 
@@ -34,7 +34,10 @@ class XmlTools
 
                 // We use the $xml->{$key} form to add the item because this causes
                 // conversion of '&' => '&amp;'
-                $xml->{$key} = $item;
+                try {
+                    $xml->{$key} = $item;
+                } catch (\Exception $e) {
+                }
             }
         }
 
