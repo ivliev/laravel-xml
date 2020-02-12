@@ -81,6 +81,10 @@ class XmlTools
 
             $parent = current($element->xpath('..'));
             $tag = $element->getName();
+		
+	    if (\Str::singular($parent->getName()) === $tag) {
+                $tag = null;
+            }
 
             if ($tag) {
                 $arr[$tag] = $value;
