@@ -48,6 +48,16 @@ class XmlResponse extends Response
         $this->data = XmlTools::serialize($data);
         return $this->update();
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setHeader($type='', $value='')
+    {
+        if($type) {
+            $this->headers->set($type, $value);
+        }
+    }
 
     /**
      * Updates the content and headers according to the XML data and callback.
