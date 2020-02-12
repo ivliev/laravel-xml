@@ -1,7 +1,8 @@
-<?php namespace Pyrello\LaravelXml\Facades;
+<?php 
+namespace Pyrello\LaravelXml\Facades;
 
 use Illuminate\Support\Facades\Response as IlluminateResponse;
-use Illuminate\Support\Contracts\ArrayableInterface;
+use Illuminate\Contracts\Support\Arrayable;
 use Pyrello\LaravelXml\XmlResponse;
 
 class Response extends IlluminateResponse {
@@ -12,11 +13,11 @@ class Response extends IlluminateResponse {
      * @param  string|array  $data
      * @param  int    $status
      * @param  array  $headers
-     * @return \Pyrello\XmlResponse\XmlResponse
+     * @return \Pyrello\LaravelXml\XmlResponse
      */
     public static function xml($data = array(), $status = 200, array $headers = array())
     {
-        if ($data instanceof ArrayableInterface)
+        if ($data instanceof Arrayable)
         {
             $data = $data->toArray();
         }
