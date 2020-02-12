@@ -80,7 +80,7 @@ class XmlTools
             $parent = current($element->xpath('..'));
             $tag = $element->getName();
 
-            if (str_singular($parent->getName()) === $tag) {
+            if (\Str::singular($parent->getName()) === $tag) {
                 $tag = null;
             }
 
