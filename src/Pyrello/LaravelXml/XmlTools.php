@@ -51,9 +51,11 @@ class XmlTools
 
         foreach ($xml as $k=>$element)
         {
+			
             $e = get_object_vars($element);
             if (!empty($e))
             {
+			
 				foreach($e AS $k1=>$v1) {
 					if($v1 instanceof SimpleXMLElement) {
 						$e[$k1] = static::decode($v1);
@@ -79,10 +81,6 @@ class XmlTools
 
             $parent = current($element->xpath('..'));
             $tag = $element->getName();
-
-            if (\Str::singular($parent->getName()) === $tag) {
-                $tag = null;
-            }
 
             if ($tag) {
                 $arr[$tag] = $value;
