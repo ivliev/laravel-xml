@@ -5,9 +5,9 @@ use stdClass;
 
 class XmlTools
 {
-    public static function serialize($data, $rootElement = 'items', $xmlVersion = '1.0', $xmlEncoding = 'UTF-8')
+    public static function serialize($data, $rootElement = 'response', $xmlVersion = '1.0', $xmlEncoding = 'UTF-8')
     {
-        $xml = new SimpleXMLElement('<?xml version="' . $xmlVersion .'" encoding="' . $xmlEncoding . '"?><response/>');
+        $xml = new SimpleXMLElement('<?xml version="' . $xmlVersion .'" encoding="' . $xmlEncoding . '"?><'.$rootElement.'/>');
         static::encode($data, $xml);
 
         return $xml->asXML();
