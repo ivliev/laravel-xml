@@ -43,7 +43,7 @@ class XmlResponse extends Response
     /**
      * {@inheritdoc}
      */
-    public function setData($data = array())
+    public function setData($data = array(), $rootElement = 'response')
     {
         $this->data = XmlTools::serialize($data);
         return $this->update();
